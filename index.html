@@ -3,168 +3,581 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scientific Calculator</title>
+<title>Haus of Bakes</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-    body {
-        background: linear-gradient(135deg, #1e3c72, #2a5298);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-    }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    .calculator {
-        background: #1c1c1c;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        width: 350px;
-    }
+body{
+    font-family:'Poppins',sans-serif;
+    background:#fff6f9;
+    color:#5a4a4a;
+}
 
-    #display {
-        width: 100%;
-        height: 60px;
-        font-size: 24px;
-        text-align: right;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        background: #333;
-        color: white;
-    }
+header{
+    background:#f8d7e3;
+    padding:30px 20px;
+    text-align:center;
+}
 
-    .buttons {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-    }
+header h1{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    color:#b76e79;
+}
 
-    button {
-        padding: 15px;
-        font-size: 16px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+nav{
+    text-align:center;
+    padding:15px;
+    background:#fff0f5;
+    position:relative;
+}
 
-    button:hover {
-        opacity: 0.8;
-    }
+nav a{
+    margin:0 15px;
+    text-decoration:none;
+    color:#b76e79;
+    font-weight:500;
+}
 
-    .operator { background: #ff9500; color: white; }
-    .function { background: #505050; color: white; }
-    .number { background: #2e2e2e; color: white; }
-    .equal { background: #28a745; color: white; grid-column: span 2; }
-    .clear { background: #dc3545; color: white; }
+.cart-icon{
+    position:absolute;
+    right:20px;
+    top:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    background:linear-gradient(to right,#ffe4ec,#fff6f9);
+}
+
+.section{
+    padding:60px 20px;
+    text-align:center;
+}
+
+.section h2{
+    font-family:'Playfair Display',serif;
+    margin-bottom:40px;
+    font-size:30px;
+    color:#b76e79;
+}
+
+    .card img {
+    width: 100%;          /* makes image fill card width */
+    height: 180px;        /* fixes height so all images are same size */
+    object-fit: cover;    /* crops image nicely without stretching */
+    border-radius: 15px;  /* optional rounded corners */
+}
+    
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 per row on desktop */
+    gap: 25px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .products {
+        grid-template-columns: 1fr; /* 1 per row on mobile */
+    }
+}
+
+.card img {
+    width: 100%;
+    height: 180px;       /* all images same height */
+    object-fit: cover;   /* crop nicely */
+    border-radius: 15px;
+    margin-bottom: 10px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(183,110,121,0.15);
+    text-align:center;
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#b76e79;
+}
+
+.price{
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.btn{
+    background:#b76e79;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.btn:hover{
+    background:#8c4c57;
+}
+
+  
+
+/* CART */
+.cart{
+    position:fixed;
+    right:-350px;
+    top:0;
+    width:300px;
+    height:100%;
+    background:white;
+    box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+    padding:20px;
+    transition:0.4s;
+    overflow-y:auto;
+}
+.cart.active{
+    right:0;
+}
+
+.cart h3{
+    margin-bottom:20px;
+}
+
+.cart-item{
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.total{
+    margin-top:20px;
+    font-weight:bold;
+}
+
+.close-cart{
+    position:absolute;
+    top:15px;
+    right:15px;
+    background:none;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+    color:#b76e79;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:25px;
+    right:25px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    text-align:center;
+    font-size:30px;
+    line-height:60px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    z-index:1000;
+    text-decoration:none;
+}
+
+.whatsapp-float:hover{
+    background:#1ebe5d;
+}
+
+/* Cart upgrade */
+.cart-item{
+    margin-bottom:15px;
+    font-size:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.quantity-controls{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.qty-btn{
+    background:#b76e79;
+    color:white;
+    border:none;
+    padding:4px 8px;
+    cursor:pointer;
+    border-radius:5px;
+}
+.remove-btn{
+    background:none;
+    border:none;
+    color:red;
+    cursor:pointer;
+}
+
+.order-btn{
+    margin-top:15px;
+    width:100%;
+}
+footer {
+    width: 100%;           /* full width */
+    text-align: center;     /* center the text horizontally */
+    padding: 20px 0;        /* space above & below */
+    font-size: 14px;        /* text size */
+    color: #7a5c61;         /* text color */
+    background: #f8d7e3;    /* background color */
+    margin: 0 auto;         /* remove default margin */
+}
+    /* About Us Section Styling */
+#about p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #5a4a4a;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 10px; /* optional padding for small screens */
+}
+    .blogs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 blogs per row on desktop */
+  gap: 25px;
+  text-align: left;
+}
+
+.blog-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(183, 110, 121, 0.1);
+}
+
+.blog-card h3 {
+  color: #b76e79;
+  margin-bottom: 10px;
+}
+
+.blog-card p {
+  font-size: 14px;
+  color: #5a4a4a;
+}
+
+@media (max-width: 1024px) {
+  .blogs {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on tablet */
+  }
+}
+
+@media (max-width: 768px) {
+  .blogs {
+    grid-template-columns: 1fr; /* 1 per row on mobile */
+  }
+}
 </style>
 </head>
 
 <body>
 
-<div class="calculator">
-    <input type="text" id="display" disabled>
+<header>
+    <img src="haus of bakery.jpeg" alt="Logo" width="60" 
+         style="vertical-align: middle; margin-right:10px;">
+    
+    <h1 style="display:inline;">Haus of Bakes</h1>
+    <p>Baked with Love, Served With Joy 🍰</p>
+</header>
 
-    <div class="buttons">
-        <button class="function" onclick="clearDisplay()">C</button>
-        <button class="function" onclick="deleteLast()">DEL</button>
-        <button class="function" onclick="appendValue('(')">(</button>
-        <button class="function" onclick="appendValue(')')">)</button>
-        <button class="operator" onclick="appendValue('/')">÷</button>
+<nav>
+<a href="#home">Home</a>
+<a href="#menu">Menu</a>
+<a href="#about">Our Story</a>
+<a href="#contact">Contact</a>
+<span class="cart-icon" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</span>
+</nav>
 
-        <button class="function" onclick="appendFunction('sin')">sin</button>
-        <button class="function" onclick="appendFunction('cos')">cos</button>
-        <button class="function" onclick="appendFunction('tan')">tan</button>
-        <button class="function" onclick="appendFunction('log')">log</button>
-        <button class="operator" onclick="appendValue('*')">×</button>
+<section class="hero">
+<h2>Freshly Baked with Love</h2>
+<p>Where every bite feels like home.</p>
 
-        <button class="function" onclick="appendFunction('sqrt')">√</button>
-        <button class="function" onclick="appendValue('**2')">x²</button>
-        <button class="function" onclick="appendValue('**')">xʸ</button>
-        <button class="function" onclick="appendValue(Math.PI)">π</button>
-        <button class="operator" onclick="appendValue('-')">−</button>
+</section>
+   
+    <section class="section" id="about">
+  <h2>Our Story</h2>
+  <p>
+    At <strong>Haus of Bakes</strong>, every creation is made with love, passion, and the finest ingredients. From classic cakes to delightful pastries, we craft each treat to bring joy to every bite. Our mission is simple: to make every moment sweeter, one baked masterpiece at a time. Whether it’s a special celebration or a cozy treat at home, we’re here to spread happiness through delicious, freshly baked goodies.
+  </p>
+</section>
 
-        <button class="number" onclick="appendValue('7')">7</button>
-        <button class="number" onclick="appendValue('8')">8</button>
-        <button class="number" onclick="appendValue('9')">9</button>
-        <button class="function" onclick="appendValue(Math.E)">e</button>
-        <button class="operator" onclick="appendValue('+')">+</button>
-
-        <button class="number" onclick="appendValue('4')">4</button>
-        <button class="number" onclick="appendValue('5')">5</button>
-        <button class="number" onclick="appendValue('6')">6</button>
-        <button class="function" onclick="appendFunction('ln')">ln</button>
-        <button class="equal" onclick="calculate()">=</button>
-
-        <button class="number" onclick="appendValue('1')">1</button>
-        <button class="number" onclick="appendValue('2')">2</button>
-        <button class="number" onclick="appendValue('3')">3</button>
-        <button class="number" onclick="appendValue('0')">0</button>
-        <button class="number" onclick="appendValue('.')">.</button>
+<section class="section" id="menu">
+  <h2>Our Favorites</h2>
+  <div class="products">
+    <!-- Product 1 -->
+    <div class="card">
+      <img src="https://www.gujaratgifts.com/media/catalog/product/cache/1/image/1200x/040ec09b1e35df139433887a97daa66f/n/1/n1904cake140.jpg" alt="Rose Vanilla Cake">
+      <h3>Rose Vanilla Cake</h3>
+      <p>Light sponge layered with silky vanilla cream.</p>
+      <div class="price">$15</div>
+      <button class="btn" onclick="addToCart('Rose Vanilla Cake', 15)">Add to Cart</button>
     </div>
+
+    <!-- Product 2 -->
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhE11qyDzgMsjPpEzSAP3ZQjjUFM6kFGorQw&s" alt="Strawberry Cake">
+      <h3>Strawberry Cake</h3>
+      <p>Soft cream, fresh strawberries & fluffy layers.</p>
+      <div class="price">$12</div>
+      <button class="btn" onclick="addToCart('Strawberry Cake', 12)">Add to Cart</button>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgoXcpYLiOpkx5-70xTeMbbiJejuXxcZ9FIg&s" alt="Classic Butter Croissant">
+      <h3>Classic Butter Croissant</h3>
+      <p>Golden, flaky & perfectly baked every morning.</p>
+      <div class="price">$5</div>
+      <button class="btn" onclick="addToCart('Classic Butter Croissant', 5)">Add to Cart</button>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhPRw20ygEEPnbpNOHwgqGNbdcDv6dR20S2A&s" alt="Chocolate Cake">
+      <h3>Chocolate Cake</h3>
+      <p>Rich, moist chocolate cake with creamy frosting.</p>
+      <div class="price">$18</div>
+      <button class="btn" onclick="addToCart('Chocolate Cake', 18)">Add to Cart</button>
+    </div>
+
+    <!-- Product 5 -->
+    <div class="card">
+      <img src="https://greatfood.ie/wp-content/uploads/2024/07/1400x919-Brown-butter-lemon-thyme-drizzle-cake-90d04bca-c512-4565-b147-34cb3d2b5611-0-1400x919-1.jpg" alt="Brown Butter Lemon Drizzle Cake">
+      <h3>Brown Butter Lemon Drizzle Cake</h3>
+      <p>Moist cake with zesty lemon glaze and nutty brown butter flavor.</p>
+      <div class="price">$20</div>
+      <button class="btn" onclick="addToCart('Brown Butter Lemon Drizzle Cake', 20)">Add to Cart</button>
+    </div>
+
+    <!-- Product 6 -->
+    <div class="card">
+      <img src="https://www.theflavorbender.com/wp-content/uploads/2019/11/Blueberry-Muffins-Social-Media-4517-2.jpg" alt="Blueberry Muffins">
+      <h3>Blueberry Muffins</h3>
+      <p>Soft, fluffy muffins bursting with fresh blueberries.</p>
+      <div class="price">$10</div>
+      <button class="btn" onclick="addToCart('Blueberry Muffins', 10)">Add to Cart</button>
+    </div>
+
+    <!-- Product 7 -->
+    <div class="card">
+      <img src="https://mccormick.widen.net/content/megysgsour/jpeg/Holiday_Cinnamon-Rolls_1376x774.jpeg" alt="Holiday Cinnamon Rolls">
+      <h3>Holiday Cinnamon Rolls</h3>
+      <p>Soft, warm rolls with a sweet cinnamon glaze.</p>
+      <div class="price">$12</div>
+      <button class="btn" onclick="addToCart('Holiday Cinnamon Rolls', 12)">Add to Cart</button>
+    </div>
+
+    <!-- Product 8 -->
+    <div class="card">
+      <img src="https://mojo.generalmills.com/api/public/content/_pLFRXFETcuXWg_Z0MhZPw_gmi_hi_res_jpeg.jpeg?v=693b292b&t=466b54bb264e48b199fc8e83ef1136b4" alt="Delicious Cake">
+      <h3>Delicious Cake</h3>
+      <p>Rich and moist cake layered with creamy goodness.</p>
+      <div class="price">$20</div>
+      <button class="btn" onclick="addToCart('Delicious Cake', 20)">Add to Cart</button>
+    </div>
+
+    <!-- Product 9 -->
+    <div class="card">
+      <img src="https://www.mybakingaddiction.com/wp-content/uploads/2024/05/sliced-peanut-butter-banana-bread-hero.jpg" alt="Peanut Butter Banana Bread">
+      <h3>Peanut Butter Banana Bread</h3>
+      <p>Moist banana bread infused with rich peanut butter flavor.</p>
+      <div class="price">$9</div>
+      <button class="btn" onclick="addToCart('Peanut Butter Banana Bread', 9)">Add to Cart</button>
+    </div>
+
+    <!-- Product 10 -->
+    <div class="card">
+      <img src="https://food.fnr.sndimg.com/content/dam/images/food/fullset/2007/2/16/0/ry0401_carrotcake.jpg.rend.hgtvcom.1280.720.suffix/1552488933139.webp" alt="Carrot Cake">
+      <h3>Carrot Cake</h3>
+      <p>Classic carrot cake with cream cheese frosting and warm spices.</p>
+      <div class="price">$16</div>
+      <button class="btn" onclick="addToCart('Carrot Cake', 16)">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+    <section class="section" id="blog">
+  <h2>Our Blog</h2>
+  <div class="blogs">
+    <div class="blog-card">
+      <h3>Top 5 Cake Decorating Tips</h3>
+      <p>Learn easy ways to make your cakes look beautiful at home with simple decorating tricks.</p>
+    </div>
+
+    <div class="blog-card">
+      <h3>Healthy Baking: Substitutes for Sugar and Butter</h3>
+      <p>Discover how to make desserts a bit healthier without losing flavor.</p>
+    </div>
+
+    <div class="blog-card">
+      <h3>Seasonal Fruits in Our Pastries</h3>
+      <p>Fresh seasonal fruits make our pastries delicious and natural. Find out which fruits we use!</p>
+    </div>
+
+    <div class="blog-card">
+      <h3>Behind the Scenes: How We Bake Daily</h3>
+      <p>Peek into our daily bakery routine and see how we bake with love and care.</p>
+    </div>
+
+    <div class="blog-card">
+      <h3>Choosing the Perfect Cake for Every Occasion</h3>
+      <p>Tips to pick the right cake for birthdays, weddings, and festive celebrations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CART SIDEBAR -->
+<div class="cart" id="cart">
+<button class="close-cart" onclick="toggleCart()">✖</button>
+<h3>Your Cart</h3>
+<div id="cart-items"></div>
+<div class="total">Total: $<span id="total">0</span></div>
+<button class="btn order-btn" onclick="orderViaWhatsApp()">Order via WhatsApp</button>
 </div>
 
+
+<section class="contact container" id="contact">
+<h2>Contact Haus of Bakes</h2>
+<div class="contact-info">
+<p>📞 Phone: <a href="tel:+9779817542617" class="contact-link">+977-9817542617</a></p>
+<p>📧 Email: <a href="mailto:hausofbakes0@gmail.com" class="contact-link">hausofbakes0@gmail.com</a></p>
+<p>🔵 Facebook: <a href="https://www.facebook.com/profile.php?id=61587791198482&sk=reels_tab" target="_blank" class="contact-link">facebook.com/haus-of-bakes</a></p>
+<p>📍 Location: Devinagar, Butwal-11, Rupandehi, Nepal</p>
+</div>
+<br>
+
+    <section class="section" id="location">
+    <h2>Our location: Butwal-11,Devinagar </h2>
+
+   <!-- Simple map showing Butwal-11, Devinagar -->
+<iframe
+    src="https://www.google.com/maps?q=Butwal-11,Devinagar&output=embed"
+    width="600"
+    height="450"
+    style="border:0;"
+    allowfullscreen=""
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+    
+</section>
+    
+<footer>
+© 2026 Haus of Bakes | Made with love & sugar
+</footer>
+
 <script>
-    const display = document.getElementById("display");
-    let isDegree = true;
+let cart = [];
 
-    function appendValue(value) {
-        display.value += value;
+function toggleCart(){
+    document.getElementById("cart").classList.toggle("active");
+}
+
+function addToCart(name,price){
+    let existingItem = cart.find(item => item.name === name);
+
+    if(existingItem){
+        existingItem.quantity += 1;
+    }else{
+        cart.push({name,price,quantity:1});
     }
 
-    function appendFunction(func) {
-        display.value += func + "(";
+    updateCart();   // ONLY update count
+}
+
+function increaseQty(name){
+    let item = cart.find(item => item.name === name);
+    item.quantity += 1;
+    updateCart();
+}
+
+function decreaseQty(name){
+    let item = cart.find(item => item.name === name);
+    item.quantity -= 1;
+
+    if(item.quantity <= 0){
+        cart = cart.filter(i => i.name !== name);
     }
 
-    function clearDisplay() {
-        display.value = "";
+    updateCart();
+}
+
+function updateCart(){
+    let cartItems = document.getElementById("cart-items");
+    cartItems.innerHTML = "";
+
+    let total = 0;
+    let totalItems = 0;
+
+    cart.forEach(item=>{
+        total += item.price * item.quantity;
+        totalItems += item.quantity;
+
+        let div = document.createElement("div");
+        div.classList.add("cart-item");
+        div.innerHTML = `
+            <div>
+                <strong>${item.name}</strong><br>
+                $${item.price} each
+            </div>
+
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="decreaseQty('${item.name}')">−</button>
+                <span>${item.quantity}</span>
+                <button class="qty-btn" onclick="increaseQty('${item.name}')">+</button>
+            </div>
+        `;
+
+        cartItems.appendChild(div);
+    });
+
+    document.getElementById("cart-count").innerText = totalItems;
+    document.getElementById("total").innerText = total.toFixed(2);
+}
+
+function orderViaWhatsApp(){
+    if(cart.length === 0){
+        alert("Your cart is empty!");
+        return;
     }
 
-    function deleteLast() {
-        display.value = display.value.slice(0, -1);
-    }
+    let message = "Hello Haus of Bakes! I would like to order:%0A";
 
-    function calculate() {
-        try {
-            let expression = display.value;
+    cart.forEach(item=>{
+        message += `- ${item.name} x${item.quantity} ($${item.price * item.quantity})%0A`;
+    });
 
-            expression = expression.replace(/sin\(([^)]+)\)/g, (_, val) =>
-                Math.sin(convertAngle(eval(val)))
-            );
+    let total = cart.reduce((sum,item)=> sum + item.price * item.quantity,0);
 
-            expression = expression.replace(/cos\(([^)]+)\)/g, (_, val) =>
-                Math.cos(convertAngle(eval(val)))
-            );
+    message += `%0ATotal: $${total}%0A%0APlease confirm my order.`;
 
-            expression = expression.replace(/tan\(([^)]+)\)/g, (_, val) =>
-                Math.tan(convertAngle(eval(val)))
-            );
-
-            expression = expression.replace(/log\(([^)]+)\)/g, (_, val) =>
-                Math.log10(eval(val))
-            );
-
-            expression = expression.replace(/ln\(([^)]+)\)/g, (_, val) =>
-                Math.log(eval(val))
-            );
-
-            expression = expression.replace(/sqrt\(([^)]+)\)/g, (_, val) =>
-                Math.sqrt(eval(val))
-            );
-
-            display.value = eval(expression);
-        } catch {
-            display.value = "Error";
-        }
-    }
-
-    function convertAngle(value) {
-        return isDegree ? value * Math.PI / 180 : value;
-    }
+    window.open(`https://wa.me/9779817542617?text=${message}`,'_blank');
+}
 </script>
 
+<a href="https://wa.me/9779817542617" 
+   class="whatsapp-float" 
+   target="_blank">
+   💬
+</a>
 </body>
 </html>
